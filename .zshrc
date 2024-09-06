@@ -43,10 +43,17 @@ setopt hist_find_no_dups
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# Aliases
+alias ls='ls --color'
+
+# Shell integration
+eval "$(fzf --zsh)"
 
 # Keybindings
-# bindkey '^n' autosuggest-accept
-bindkey '^n' history-search-backward
+bindkey '^n' autosuggest-accept
+bindkey '^f' history-search-backward
 bindkey '^p' history-search-forward
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
