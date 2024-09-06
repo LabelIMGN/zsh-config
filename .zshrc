@@ -28,5 +28,26 @@ zinit light zsh-users/zsh-autosuggestions
 # Load completions
 autoload -U compinit && compinit
 
+# History
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase # Erases duplicates
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+# Keybindings
+# bindkey '^n' autosuggest-accept
+bindkey '^n' history-search-backward
+bindkey '^p' history-search-forward
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
