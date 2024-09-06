@@ -5,6 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Better history management
+setopt HIST_IGNORE_SPACE
+setopt HIST_IGNORE_DUPS
 # Use powerline
 USE_POWERLINE="true"
 # Has weird character width
