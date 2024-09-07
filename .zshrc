@@ -5,6 +5,35 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Custom function to ignore commands with leading spaces
+function up-history-ignore-space() {
+    # Loop through history backward
+    local CURSOR=$CURSOR  # Save current cursor position
+    zle up-line-or-history # Move up in history
+    while [[ "$LBUFFER" == ' '* ]]; do
+        zle up-line-or-history # Keep moving up if the line starts with a space
+    done
+    CURSOR=$CURSOR  # Restore cursor position
+}
+
+# Custom function for down arrow to ignore leading spaces
+function down-history-ignore-space() {
+    # Loop through history forward
+    local CURSOR=$CURSOR  # Save current cursor position
+    zle down-line-or-history # Move down in history
+    while [[ "$LBUFFER" == ' '* ]]; do
+        zle down-line-or-history # Keep moving down if the line starts with a space
+    done
+    CURSOR=$CURSOR  # Restore cursor position
+}
+
+# Bind these functions to the arrow keys
+zle -N up-history-ignore-space
+zle -N down-history-ignore-space
+bindkey '^[[A' up-history-ignore-space  # Up arrow
+bindkey '^[[B' down-history-ignore-space # Down arrow
+
+
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -33,6 +62,7 @@ HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase # Erases duplicates
+HISTIGNORE="*clear*"
 setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_space
@@ -47,6 +77,7 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # Aliases
 alias ls='ls --color'
+alias python='python3'
 
 # Shell integration
 eval "$(fzf --zsh)"
