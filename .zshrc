@@ -79,6 +79,9 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 alias ls='ls --color'
 alias python='python3'
 
+# PATH
+export PATH="$HOME/.config/emacs/bin:$PATH"
+
 # Shell integration
 eval "$(fzf --zsh)"
 
@@ -86,6 +89,16 @@ eval "$(fzf --zsh)"
 bindkey '^n' autosuggest-accept
 bindkey '^f' history-search-backward
 bindkey '^p' history-search-forward
+# Enable Ctrl + arrow keys for word navigation
+bindkey '^[[1;5C' forward-word    # Ctrl + Right Arrow
+bindkey '^[[1;5D' backward-word   # Ctrl + Left Arrow
+# Enable Ctrl + Backspace to delete word backwards
+bindkey '^H' backward-kill-word
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
