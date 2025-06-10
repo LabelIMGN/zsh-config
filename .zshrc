@@ -45,7 +45,7 @@ fi
 
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
-source /home/imgnstudio/micro-tools/aliases.sh
+# source /home/imgnstudio/micro-tools/aliases.sh
 
 
 # Add in Powerlevel10k
@@ -78,11 +78,20 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # Aliases
+alias celar='clear'
+alias claer='clear'
 alias ls='ls --color'
 alias python='python3'
+alias arduino-push='/Users/imgn-studio/Dropbox/arduino_push.sh'
+alias nes-compile='/Users/imgn-studio/Dropbox/nes_compile.sh'
+## Less syntx highlight
+LESSPIPE=`which src-hilite-lesspipe.sh`
+export LESSOPEN="| ${LESSPIPE} %s"
+export LESS=' -R -X -F '
 
 # PATH
 export PATH="$HOME/.config/emacs/bin:$PATH"
+# export PATH="/opt/homebrew/anaconda3/bin:$PATH"  # commented out by conda initialize
 
 # Shell integration
 eval "$(fzf --zsh)"
@@ -92,8 +101,8 @@ bindkey '^n' autosuggest-accept
 bindkey '^f' history-search-backward
 bindkey '^p' history-search-forward
 # Enable Ctrl + arrow keys for word navigation
-bindkey '^[[1;5C' forward-word    # Ctrl + Right Arrow
-bindkey '^[[1;5D' backward-word   # Ctrl + Left Arrow
+bindkey '^[[1;3C' forward-word    # Ctrl + Right Arrow
+bindkey '^[[1;3D' backward-word   # Ctrl + Left Arrow
 # Enable Ctrl + Backspace to delete word backwards
 bindkey '^H' backward-kill-word
 
@@ -104,3 +113,21 @@ bindkey '^H' backward-kill-word
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+
+. "$HOME/.local/bin/env"
